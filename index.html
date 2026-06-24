@@ -4,15 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Portfolio — Sharan Prabhu</title>
+  <meta name="description" content="Sharan Prabhu — UX/UI Designer crafting digital experiences that are clear, engaging, and a little delightful. Explore case studies, live work, and experience.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Open Graph / social share preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sharan Prabhu — UX/UI Designer">
+  <meta property="og:description" content="Creating digital experiences that are clear, engaging, and a little delightful. Explore case studies, live work, and experience.">
+  <meta property="og:image" content="og-image.jpg">
+  <meta property="og:url" content="https://sharanprabhu.github.io/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sharan Prabhu — UX/UI Designer">
+  <meta name="twitter:description" content="Creating digital experiences that are clear, engaging, and a little delightful.">
+  <meta name="twitter:image" content="og-image.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:    #0e0e0f;
+      --ink:    #171717;
       --paper:  #f6f4ee;
-      --accent: #c84b2f;
+      --accent: #21f1a8;
       --mid:    #8a8680;
       --white:  #ffffff;
     }
@@ -23,6 +41,18 @@
       color: var(--paper);
       font-family: 'Space Grotesk', sans-serif;
       overflow-x: hidden;
+    }
+
+    /* ── CURSOR PARTICLE TRAIL ──────────────────────────────── */
+    .cursor-particle {
+      position: fixed;
+      top: 0; left: 0;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      will-change: opacity, transform;
     }
 
     /* ── INTRO SCREEN ───────────────────────────────────────── */
@@ -54,8 +84,8 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(ellipse at center,
-        rgba(0,0,0,0.15) 0%,
-        rgba(0,0,0,0.65) 100%
+      rgba(0,0,0,0.15) 0%,
+      rgba(0,0,0,0.65) 100%
       );
       z-index: 1;
     }
@@ -111,7 +141,7 @@
       transform: scale(1.08);
     }
     #play-btn:hover .play-circle::after {
-      background: rgba(200,75,47,0.25);
+      background: rgba(33,241,168,0.25);
     }
 
     /* Ripple ring on hover */
@@ -119,11 +149,11 @@
       position: absolute;
       inset: -16px;
       border-radius: 50%;
-      border: 1px solid rgba(200,75,47,0);
+      border: 1px solid rgba(33,241,168,0);
       transition: border-color 0.3s;
     }
     #play-btn:hover .play-ripple {
-      border-color: rgba(200,75,47,0.3);
+      border-color: rgba(33,241,168,0.3);
       animation: ripple 1.4s ease-out infinite;
     }
     @keyframes ripple {
@@ -211,7 +241,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 24px 48px;
-      mix-blend-mode: difference;
     }
     .nav-logo {
       font-family: 'Space Mono', monospace;
@@ -219,18 +248,36 @@
       letter-spacing: 0.08em;
       color: var(--paper);
       text-decoration: none;
+      background: rgba(23,23,23,0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(33,241,168,0.35);
+      padding: 8px 16px;
+      border-radius: 999px;
+      transition: border-color 0.2s, background 0.2s;
     }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-logo:hover { border-color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      background: rgba(23,23,23,0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(33,241,168,0.35);
+      padding: 10px 26px;
+      border-radius: 999px;
+    }
     .nav-links a {
       font-size: 0.8rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--paper);
       text-decoration: none;
-      opacity: 0.6;
-      transition: opacity 0.2s;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
     }
-    .nav-links a:hover { opacity: 1; }
+    .nav-links a:hover { opacity: 1; color: var(--accent); }
 
     /* ── HERO ────────────────────────────────────────────────── */
     #hero {
@@ -251,29 +298,17 @@
       pointer-events: none;
       z-index: 1;
     }
-    #hero::after {
-      content: '';
+    #hero-particles {
       position: absolute;
-      top: 30%; left: 55%;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(200,75,47,0.12) 0%, transparent 70%);
-      transform: translate(-50%, -50%);
+      inset: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       z-index: 1;
     }
-    .hero-bg-text {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(140px, 22vw, 320px);
-      font-weight: 700;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(246,244,238,0.05);
-      white-space: nowrap;
-      user-select: none;
-      pointer-events: none;
-      z-index: 2;
+    #hero-particles canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
     .hero-content { position: relative; z-index: 3; max-width: 760px; }
     .hero-eyebrow {
@@ -304,7 +339,7 @@
     .cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
     .btn-primary {
       background: var(--accent);
-      color: var(--white);
+      color: var(--ink);
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.85rem;
       font-weight: 600;
@@ -317,7 +352,7 @@
       text-decoration: none;
       transition: background 0.2s, transform 0.15s;
     }
-    .btn-primary:hover { background: #a83b22; transform: translateY(-1px); }
+    .btn-primary:hover { background: #1bd494; transform: translateY(-1px); }
     .btn-ghost {
       background: transparent;
       color: var(--paper);
@@ -334,6 +369,22 @@
       transition: border-color 0.2s, transform 0.15s;
     }
     .btn-ghost:hover { border-color: var(--paper); transform: translateY(-1px); }
+    .btn-resume {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--mid);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      padding: 14px 8px;
+      transition: color 0.2s, gap 0.2s;
+    }
+    .btn-resume svg { transition: transform 0.2s; flex-shrink: 0; }
+    .btn-resume:hover { color: var(--accent); gap: 11px; }
+    .btn-resume:hover svg { transform: translateY(2px); }
     .scroll-hint {
       position: absolute;
       bottom: 36px; right: 48px;
@@ -360,6 +411,16 @@
 
     /* ── SECTION BASE ────────────────────────────────────────── */
     section { padding: 120px 48px; }
+
+    /* ── SMOOTH SECTION PARALLAX ─────────────────────────────── */
+    #about, #work, #experience, #contact {
+      --parallax-y: 0px;
+      --parallax-fade: 1;
+      transform: translateY(var(--parallax-y));
+      opacity: var(--parallax-fade);
+      transition: transform 0.05s linear;
+      will-change: transform;
+    }
     .section-label {
       font-family: 'Space Mono', monospace;
       font-size: 0.7rem;
@@ -378,68 +439,153 @@
     }
 
     /* ── ABOUT ───────────────────────────────────────────────── */
-    #about { background: var(--paper); color: var(--ink); }
+    #about { background: #1d1d1d; color: var(--paper); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .about-headline {
       font-family: 'Playfair Display', serif;
       font-size: clamp(32px, 4vw, 54px);
       font-weight: 700; line-height: 1.1;
-      color: var(--ink); margin-bottom: 28px;
+      color: var(--paper); margin-bottom: 28px;
     }
     .about-headline em { font-style: italic; color: var(--accent); font-weight: 400; }
-    .about-text { font-size: 1rem; line-height: 1.75; color: #4a4846; margin-bottom: 20px; }
+    .about-text { font-size: 1rem; line-height: 1.75; color: var(--mid); margin-bottom: 20px; }
     .about-right { padding-top: 8px; }
     .skills-title {
       font-family: 'Space Mono', monospace;
       font-size: 0.7rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--mid); margin-bottom: 24px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .skills-title::after {
+      content: '';
+      flex: 1; max-width: 80px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
     }
     .skill-chip {
       display: inline-block;
-      border: 1px solid rgba(14,14,15,0.18);
+      border: 1px solid rgba(246,244,238,0.18);
       border-radius: 2px; padding: 6px 14px;
-      font-size: 0.82rem; font-weight: 500; color: var(--ink);
+      font-size: 0.82rem; font-weight: 500; color: var(--paper);
       margin: 0 8px 10px 0;
       transition: border-color 0.2s, background 0.2s;
     }
-    .skill-chip:hover { border-color: var(--accent); background: rgba(200,75,47,0.06); }
+    .skill-chip:hover { border-color: var(--accent); background: rgba(33,241,168,0.1); }
 
     /* ── WORK ────────────────────────────────────────────────── */
-    #work { background: var(--ink); }
-    .work-intro {
-      display: flex; justify-content: space-between;
-      align-items: flex-end; margin-bottom: 64px;
-      flex-wrap: wrap; gap: 24px;
-    }
-    .work-heading {
+    #work { background: #161616; }
+    .work-heading, .section-headline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 64px);
+      font-size: clamp(44px, 6.5vw, 80px);
       font-weight: 700; line-height: 1.0; color: var(--paper);
+      text-align: left;
+      margin-bottom: 40px;
     }
-    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .project-card { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; }
-    .project-card:first-child { grid-column: span 2; aspect-ratio: auto; }
-    .project-placeholder {
-      width: 100%; height: 100%; min-height: 280px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; transition: transform 0.6s ease;
+    .work-heading em, .section-headline em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
     }
-    .project-card:hover .project-placeholder { transform: scale(1.04); }
-    .project-card:hover .project-img { transform: scale(1.04); }
-    .project-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(14,14,15,0.92) 0%, rgba(14,14,15,0.1) 60%, transparent 100%);
-      opacity: 0; transition: opacity 0.4s;
-      display: flex; flex-direction: column; justify-content: flex-end; padding: 28px;
+    .filter-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
     }
-    .project-card:hover .project-overlay { opacity: 1; }
+    .filter-tab {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      background: transparent;
+      border: 1px solid rgba(246,244,238,0.15);
+      border-radius: 999px;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .filter-tab:hover { color: var(--paper); border-color: rgba(246,244,238,0.3); }
+    .filter-tab.active {
+      color: var(--ink);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .project-card.filtered-out {
+      display: none;
+    }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .project-card:first-child { grid-column: span 2; aspect-ratio: auto; min-height: 360px; }
+    .project-card:hover { transform: translateY(-4px); }
+
+    /* Color block backgrounds — warm earth-tone palette */
+    .project-card.tone-clay     { background: #c84b2f; }
+    .project-card.tone-sand     { background: #a8835a; }
+    .project-card.tone-sage     { background: #3d5a52; }
+    .project-card.tone-rust     { background: #2a4d6e; }
+
+    /* Decorative oversized index number, bottom-right */
+    .project-card::after {
+      content: attr(data-index);
+      position: absolute;
+      bottom: -0.15em; right: 16px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(80px, 10vw, 140px);
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(255,255,255,0.1);
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .project-tag {
+      position: relative; z-index: 1;
       font-family: 'Space Mono', monospace;
       font-size: 0.65rem; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      opacity: 0.85;
     }
-    .project-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--paper); }
-    .project-desc { font-size: 0.82rem; color: var(--mid); margin-top: 6px; line-height: 1.5; }
+    .tone-rust .project-tag, .tone-sage .project-tag { color: rgba(255,255,255,0.85); }
+    .tone-clay .project-tag { color: rgba(255,255,255,0.95); }
+    .tone-sand .project-tag { color: #2a1d0f; }
+
+    .project-title {
+      position: relative; z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      line-height: 1.1;
+    }
+    .tone-clay .project-title, .tone-rust .project-title, .tone-sage .project-title { color: #ffffff; }
+    .tone-sand .project-title { color: #2c1f10; }
+
+    .project-desc {
+      position: relative; z-index: 1;
+      font-size: 0.85rem; line-height: 1.55;
+      margin-top: 10px;
+      max-width: 320px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease;
+    }
+    .project-card:hover .project-desc { max-height: 80px; opacity: 1; }
+    .tone-rust .project-desc, .tone-sage .project-desc { color: rgba(255,255,255,0.85); }
+    .tone-clay .project-desc { color: #ffffff; }
+    .tone-sand .project-desc { color: rgba(36,25,13,0.95); }
 
     /* ── EXPERIENCE ──────────────────────────────────────────── */
     #experience { background: #111113; }
@@ -453,28 +599,38 @@
     .exp-year { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--mid); padding-top: 4px; }
     .exp-role { font-size: 1.1rem; font-weight: 600; color: var(--paper); margin-bottom: 4px; }
     .exp-company { font-size: 0.9rem; color: var(--accent); margin-bottom: 12px; font-weight: 500; }
-    .exp-detail { font-size: 0.88rem; line-height: 1.7; color: var(--mid); }
+    .exp-detail { font-size: 0.95rem; line-height: 1.7; color: var(--mid); }
+    .exp-detail ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .exp-detail li { position: relative; padding-left: 18px; }
+    .exp-detail li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 9px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
 
     /* ── CONTACT ─────────────────────────────────────────────── */
-    #contact { background: var(--paper); color: var(--ink); text-align: center; padding: 140px 48px; }
-    #contact .section-label { justify-content: center; }
+    #contact { background: #1a1a1a; color: var(--paper); text-align: center; padding: 140px 48px; }
+    #contact .section-label    { justify-content: center; }
     #contact .section-label::after { display: none; }
     .contact-heading {
       font-family: 'Playfair Display', serif;
       font-size: clamp(40px, 6vw, 80px);
-      font-weight: 700; line-height: 1.05; color: var(--ink); margin-bottom: 20px;
+      font-weight: 700; line-height: 1.05; color: var(--paper); margin-bottom: 20px;
     }
     .contact-heading em { font-style: italic; color: var(--accent); font-weight: 400; }
-    .contact-sub { font-size: 1rem; color: #6b6865; max-width: 420px; margin: 0 auto 48px; line-height: 1.7; }
+    .contact-sub { font-size: 1rem; color: var(--mid); max-width: 420px; margin: 0 auto 48px; line-height: 1.7; }
     .contact-email {
       font-family: 'Playfair Display', serif;
       font-size: clamp(18px, 2.5vw, 26px);
-      font-style: italic; color: var(--ink);
+      font-style: italic; color: var(--paper);
       text-decoration: none;
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 2px; transition: color 0.2s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
     }
-    .contact-email:hover { color: var(--accent); }
+    .contact-email:hover { color: var(--accent); border-color: var(--accent); }
     .social-row { display: flex; justify-content: center; gap: 32px; margin-top: 48px; }
     .social-link {
       font-family: 'Space Mono', monospace;
@@ -484,17 +640,68 @@
     }
     .social-link:hover { color: var(--accent); }
 
-    /* ── FOOTER ──────────────────────────────────────────────── */
-    footer {
-      background: var(--ink); padding: 32px 48px;
-      display: flex; justify-content: space-between; align-items: center;
+    /* ── FOOTER (inside last card) ──────────────────────────── */
+    .footer-divider {
+      width: 100%;
+      max-width: 420px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+      margin: 56px auto 28px;
     }
-    .footer-name { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--mid); letter-spacing: 0.08em; }
-    .footer-copy { font-size: 0.75rem; color: rgba(138,134,128,0.5); }
+    footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 8px;
+    }
+    .footer-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--mid);
+      letter-spacing: 0.08em;
+    }
 
-    /* ── REVEAL ──────────────────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* ── CURVED LOOP MARQUEE (white bg, black curved text) ───── */
+    .curved-loop-jacket {
+      width: 100%;
+      background: transparent;
+      padding: 0 0 24px;
+      margin: -20px 0 0;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      position: relative;
+      z-index: 2;
+    }
+    .curved-loop-jacket:active { cursor: grabbing; }
+    .curved-loop-svg {
+      width: 100%;
+      aspect-ratio: 1440 / 200;
+      overflow: visible;
+      display: block;
+      font-size: 3rem;
+      fill: var(--accent);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+    }
+
+    /* ── REVEAL (smooth parallax fade-and-rise) ─────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(48px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+      transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── RESPONSIVE ──────────────────────────────────────────── */
     @media (max-width: 768px) {
@@ -506,15 +713,17 @@
       .projects-grid { grid-template-columns: 1fr; }
       .project-card:first-child { grid-column: span 1; }
       .exp-item { grid-template-columns: 80px 1fr; gap: 20px; }
-      footer { flex-direction: column; gap: 12px; text-align: center; }
+      footer { text-align: center; }
       .scroll-hint { display: none; }
       .intro-meta { bottom: 24px; left: 24px; }
       #skip-btn { bottom: 24px; right: 24px; }
+      .curved-loop-jacket { padding: 36px 0; }
+      .curved-loop-svg { font-size: 2.4rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
-  
+
     /* ── SUBTITLES ───────────────────────────────────────────── */
     #intro-video::cue {
       font-family: 'Space Grotesk', sans-serif;
@@ -523,8 +732,8 @@
       color: #ffffff;
       background: rgba(0, 0, 0, 0);
       text-shadow:
-        0 2px 12px rgba(0,0,0,0.9),
-        0 0px 4px rgba(0,0,0,0.9);
+              0 2px 12px rgba(0,0,0,0.9),
+              0 0px 4px rgba(0,0,0,0.9);
       line-height: 1.5;
     }
 
@@ -559,7 +768,7 @@
     }
     #subtitle-text.visible { opacity: 1; }
 
-  
+
     /* ── PROJECT MODAL ───────────────────────────────────────── */
     #project-modal {
       display: none;
@@ -636,7 +845,7 @@
       transition: background 0.2s, border-color 0.2s;
       line-height: 1;
     }
-    .modal-close:hover { background: rgba(200,75,47,0.2); border-color: var(--accent); }
+    .modal-close:hover { background: rgba(33,241,168,0.2); border-color: var(--accent); }
 
     .modal-body {
       overflow-y: auto;
@@ -706,7 +915,7 @@
     .modal-gallery img:first-child {
       grid-column: span 2;
     }
-    .modal-gallery img:hover { transform: scale(1.01); border-color: rgba(200,75,47,0.4); }
+    .modal-gallery img:hover { transform: scale(1.01); border-color: rgba(33,241,168,0.4); }
 
     /* Process pills */
     .modal-process {
@@ -752,273 +961,336 @@
       .modal-header { padding: 20px; }
     }
 
+
+    /* ── PDF VIEWER IN MODAL ─────────────────────────────────── */
+    .modal-pdf-viewer {
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(246,244,238,0.08);
+      background: #fff;
+    }
+    .modal-pdf-viewer iframe {
+      width: 100%;
+      height: 70vh;
+      border: none;
+      display: block;
+    }
+
+    .modal-live-block {
+      width: 100%;
+      max-height: 70vh;
+      overflow-y: auto;
+      border-radius: 4px;
+      border: 1px solid rgba(246,244,238,0.08);
+      background: #fff;
+    }
+    .modal-live-block img {
+      width: 100%;
+      display: block;
+    }
+    .modal-live-block::-webkit-scrollbar { width: 4px; }
+    .modal-live-block::-webkit-scrollbar-track { background: transparent; }
+    .modal-live-block::-webkit-scrollbar-thumb { background: rgba(246,244,238,0.15); border-radius: 2px; }
+
   </style>
 </head>
 <body>
 
-  <!-- INTRO SCREEN: video poster + play button -->
-  <div id="intro-screen">
-    <video id="intro-video" playsinline preload="auto" poster="">
-      <source src="intro.mp4" type="video/mp4">
-      <track id="intro-subs" kind="subtitles" srclang="en" label="English" src="intro.vtt" default>
-    </video>
-    <div class="intro-vignette"></div>
+<!-- INTRO SCREEN: video poster + play button -->
+<div id="intro-screen">
+  <video id="intro-video" playsinline preload="auto" poster="">
+    <source src="intro.mp4" type="video/mp4">
+    <track id="intro-subs" kind="subtitles" srclang="en" label="English" src="intro.vtt" default>
+  </video>
+  <div class="intro-vignette"></div>
 
-    <!-- Custom subtitle overlay -->
-    <div id="subtitle-box">
-      <span id="subtitle-text"></span>
-    </div>
-
-    <!-- Centred play button -->
-    <button id="play-btn" aria-label="Play intro">
-      <div class="play-circle">
-        <div class="play-ripple"></div>
-        <div class="play-icon"></div>
-      </div>
-      <span class="play-label">Play</span>
-    </button>
-
-    <!-- Name watermark bottom-left -->
-    <div class="intro-meta">
-      <div class="intro-meta-name">Sharan <em>Prabhu</em></div>
-      <div class="intro-meta-sub">Portfolio &nbsp;·&nbsp; 2026</div>
-    </div>
-
-    <!-- Skip — only visible after play starts -->
-    <button id="skip-btn" onclick="endIntro()">Skip ↓</button>
+  <!-- Custom subtitle overlay -->
+  <div id="subtitle-box">
+    <span id="subtitle-text"></span>
   </div>
 
-  <!-- NAV -->
-  <nav>
-    <a class="nav-logo" href="#">SP</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- Centred play button -->
+  <button id="play-btn" aria-label="Play intro">
+    <div class="play-circle">
+      <div class="play-ripple"></div>
+      <div class="play-icon"></div>
+    </div>
+    <span class="play-label">Play</span>
+  </button>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg-text" aria-hidden="true">PORTFOLIO</div>
-    <div class="hero-content">
-      <p class="hero-eyebrow">Available for new opportunities</p>
-      <h1 class="hero-name">Sharan<br><em>Prabhu.</em></h1>
-      <p class="hero-bio">
-        Creating digital experiences that are clear, engaging, and a little delightful.
-        Because good design solves problems, and great design makes people smile.
+  <!-- Name watermark bottom-left -->
+  <div class="intro-meta">
+    <div class="intro-meta-name">Sharan <em>Prabhu</em></div>
+    <div class="intro-meta-sub">Portfolio &nbsp;·&nbsp; 2026</div>
+  </div>
+
+  <!-- Skip — only visible after play starts -->
+  <button id="skip-btn" onclick="endIntro()">Skip ↓</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">SP</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div id="hero-particles" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Available for new opportunities</p>
+    <h1 class="hero-name">Sharan<br><em>Prabhu.</em></h1>
+    <p class="hero-bio">
+      Creating digital experiences that are clear, engaging, and a little delightful.
+      Because good design solves problems, and great design makes people smile.
+    </p>
+    <div class="cta-row">
+      <a href="#work" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+      <a href="resume.pdf" download class="btn-resume">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2 class="section-headline">About <em>me.</em></h2>
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <h2 class="about-headline">Making the complex feel <em>Effortless.</em></h2>
+      <p class="about-text">
+        As a UX/UI Designer, I create digital experiences that help people accomplish their goals without friction, confusion, or unnecessary steps. My work sits at the intersection of user behavior, business strategy, and thoughtful design—where every decision is backed by purpose.
       </p>
-      <div class="cta-row">
-        <a href="#work" class="btn-primary">View Work</a>
-        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      <p class="about-text">
+        From SaaS platforms and e-commerce experiences to learning products, I've spent the last two years designing solutions that are intuitive, accessible, and built to deliver real impact. I enjoy solving challenging problems, simplifying complicated workflows, and crafting experiences that feel as good as they look.
+      </p>
+      <p class="about-text">
+        Because the best products aren't the ones users notice—they're the ones users love using.
+      </p>
+    </div>
+    <div class="about-right reveal">
+      <p class="skills-title">Skills &amp; tools</p>
+      <div>
+        <span class="skill-chip">User Research</span>
+        <span class="skill-chip">Figma</span>
+        <span class="skill-chip">Shopify</span>
+        <span class="skill-chip">Microsoft Clarity</span>
+        <span class="skill-chip">Design Systems</span>
+        <span class="skill-chip">Prototyping</span>
+        <span class="skill-chip">Accessibility</span>
+        <span class="skill-chip">Meta Business</span>
+        <span class="skill-chip">Usability Testing</span>
+        <span class="skill-chip">HTML &amp; CSS</span>
       </div>
     </div>
-    <div class="scroll-hint">Scroll</div>
-  </section>
+  </div>
+</section>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <p class="section-label">About me</p>
-    <div class="about-grid">
-      <div class="about-left reveal">
-        <h2 class="about-headline">Making the complex feel <em>Effortless.</em></h2>
-        <p class="about-text">
-          As a UX/UI Designer, I create digital experiences that help people accomplish their goals without friction, confusion, or unnecessary steps. My work sits at the intersection of user behavior, business strategy, and thoughtful design—where every decision is backed by purpose.
-        </p>
-        <p class="about-text">
-          From SaaS platforms and e-commerce experiences to learning products, I've spent the last two years designing solutions that are intuitive, accessible, and built to deliver real impact. I enjoy solving challenging problems, simplifying complicated workflows, and crafting experiences that feel as good as they look.
-        </p>
-        <p class="about-text">
-          Because the best products aren't the ones users notice—they're the ones users love using.
-        </p>
-      </div>
-      <div class="about-right reveal">
-        <p class="skills-title">Skills &amp; tools</p>
-        <div>
-          <span class="skill-chip">User Research</span>
-          <span class="skill-chip">Figma</span>
-          <span class="skill-chip">Shopify</span>
-          <span class="skill-chip">Microsoft Clarity</span>
-          <span class="skill-chip">Design Systems</span>
-          <span class="skill-chip">Prototyping</span>
-          <span class="skill-chip">Accessibility</span>
-          <span class="skill-chip">Meta Business</span>
-          <span class="skill-chip">Usability Testing</span>
-          <span class="skill-chip">HTML &amp; CSS</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- WORK -->
+<section id="work">
+  <h2 class="work-heading reveal">Pro<em>jects.</em></h2>
 
-  <!-- WORK -->
-  <section id="work">
-    <div class="work-intro">
-      <div class="section-label reveal">Selected work</div>
-      <h2 class="work-heading reveal">Projects</h2>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card reveal" onclick="openProjectModal('library')" style="cursor:pointer;">
-        <img src="library_thumb.jpg" alt="Library Redesign" class="project-img" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;">
-        <div class="project-overlay">
-          <p class="project-tag">UX Case Study · Kiosk Redesign</p>
-          <p class="project-title">Library Redesign</p>
-          <p class="project-desc">Redesigning the Anna University Library kiosk with AR navigation & smarter book discovery.</p>
-        </div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-placeholder" style="background:linear-gradient(135deg,#2d1b2e,#4a1942)">
-          <span style="font-size:3rem;opacity:0.6">📱</span>
-        </div>
-        <div class="project-overlay">
-          <p class="project-tag">Mobile · iOS &amp; Android</p>
-          <p class="project-title">Kindred App</p>
-          <p class="project-desc">Mental wellness companion. 4.9★ on App Store, featured by Apple.</p>
-        </div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-placeholder" style="background:linear-gradient(135deg,#0d2137,#1b4b6b)">
-          <span style="font-size:3rem;opacity:0.6">✦</span>
-        </div>
-        <div class="project-overlay">
-          <p class="project-tag">Branding · Identity</p>
-          <p class="project-title">Vela Studio</p>
-          <p class="project-desc">Full brand identity system for a boutique architecture firm.</p>
-        </div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-placeholder" style="background:linear-gradient(135deg,#1f2b0e,#3a5c1a)">
-          <span style="font-size:3rem;opacity:0.6">🛒</span>
-        </div>
-        <div class="project-overlay">
-          <p class="project-tag">E-commerce · Shopify</p>
-          <p class="project-title">Grove Market</p>
-          <p class="project-desc">Sustainable goods store. Conversion rate lifted 22% post-redesign.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="filter-row reveal">
+    <button class="filter-tab active" data-filter="all">All</button>
+    <button class="filter-tab" data-filter="live">Live Sites</button>
+    <button class="filter-tab" data-filter="case-study">Case Studies</button>
+  </div>
 
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <p class="section-label reveal">Experience</p>
-    <div class="exp-list">
-      <div class="exp-item reveal">
-        <span class="exp-year">2022–Now</span>
-        <div>
-          <p class="exp-role">Senior Product Designer</p>
-          <p class="exp-company">Figura Labs</p>
-          <p class="exp-detail">Lead design for core product and design system. Collaborate directly with engineering and stakeholders to ship high-quality interfaces at pace.</p>
-        </div>
-      </div>
-      <div class="exp-item reveal">
-        <span class="exp-year">2020–2022</span>
-        <div>
-          <p class="exp-role">UI/UX Designer</p>
-          <p class="exp-company">Arc Digital Studio</p>
-          <p class="exp-detail">Designed end-to-end experiences for SaaS clients across fintech and healthtech. Led a team of two junior designers.</p>
-        </div>
-      </div>
-      <div class="exp-item reveal">
-        <span class="exp-year">2018–2020</span>
-        <div>
-          <p class="exp-role">Front-end Developer</p>
-          <p class="exp-company">Nomad Creative</p>
-          <p class="exp-detail">Built marketing sites, interactive experiences, and component libraries for agencies and startups.</p>
+  <div class="projects-grid">
+    <div class="project-card reveal tone-clay" data-category="live" data-index="01" onclick="openProjectModal('rama')">
+      <p class="project-tag">Live Website · E-commerce</p>
+      <p class="project-title">Rama Water<br>Filters</p>
+      <p class="project-desc">India's #1 gravity water filter brand — built and shipped, live with real customers today.</p>
+    </div>
+
+    <div class="project-card reveal tone-sand" data-category="case-study" data-index="02" onclick="openProjectModal('library')">
+      <p class="project-tag">UX Case Study</p>
+      <p class="project-title">Library<br>Redesign</p>
+      <p class="project-desc">Redesigning the Anna University Library kiosk with AR navigation &amp; smarter book discovery.</p>
+    </div>
+
+    <div class="project-card reveal tone-sage" data-category="case-study" data-index="03" onclick="openProjectModal('pronto')">
+      <p class="project-tag">UX Case Study</p>
+      <p class="project-title">Pronto</p>
+      <p class="project-desc">Local train ticket booking app replacing confusing ATVM kiosks with a trusted, seamless experience.</p>
+    </div>
+
+    <div class="project-card reveal tone-rust" data-category="case-study" data-index="04" onclick="openProjectModal('libyroom')">
+      <p class="project-tag">UX Case Study</p>
+      <p class="project-title">Libyroom</p>
+      <p class="project-desc">Helping international students navigate unfamiliar library layouts and find books faster.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label reveal">Career</p>
+  <h2 class="section-headline reveal">Exp<em>erience.</em></h2>
+  <div class="exp-list">
+    <div class="exp-item reveal">
+      <span class="exp-year">Mar 2025 – Oct 2025</span>
+      <div>
+        <p class="exp-role">UX/UI Designer</p>
+        <p class="exp-company">Rama Pure Pvt. Ltd. — Chennai, India</p>
+        <div class="exp-detail">
+          <ul>
+            <li>Redesigned Rama Pure's official website to improve visual consistency, accessibility, and usability — increasing user engagement by 20% and improving task completion speed by 15%.</li>
+            <li>Led UX/UI design for One India and 4 international e-commerce platforms, creating responsive, user-centered interfaces that contributed to a 12% increase in international sales conversions.</li>
+            <li>Improved accessibility through better contrast ratios, keyboard navigation, and screen-reader-friendly design, reducing bounce rate by 25%.</li>
+            <li>Restructured product variation hierarchy to improve product discoverability by 30% and reduce checkout friction.</li>
+            <li>Used Figma, Shopify, Microsoft Clarity, and analytics insights to identify user behavior patterns and support data-driven design decisions.</li>
+            <li>Collaborated with developers, marketing, and product teams to create reusable design components, reducing design-to-development handoff time by 20%.</li>
+          </ul>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <p class="section-label">Let's talk</p>
-    <h2 class="contact-heading reveal">Got a project<br>in <em>mind?</em></h2>
-    <p class="contact-sub reveal">I'm open to freelance projects, full-time roles, and interesting collaborations.</p>
-    <a href="mailto:hello@alexreyes.co" class="contact-email reveal">hello@alexreyes.co</a>
-    <div class="social-row reveal">
-      <a href="#" class="social-link">LinkedIn</a>
-      <a href="#" class="social-link">Dribbble</a>
-      <a href="#" class="social-link">GitHub</a>
-      <a href="#" class="social-link">Twitter/X</a>
+    <div class="exp-item reveal">
+      <span class="exp-year">Jan 2023 – Jun 2024</span>
+      <div>
+        <p class="exp-role">UX/UI Designer — Learning Management System</p>
+        <p class="exp-company">Freelance — Leicester, UK</p>
+        <div class="exp-detail">
+          <ul>
+            <li>Designed an end-to-end Learning Management System (LMS) for 10 modules, improving student engagement and participation by 40%.</li>
+            <li>Conducted user research with educators and learners to identify pain points and inform UX decisions.</li>
+            <li>Created user flows, information architecture, wireframes, and high-fidelity UI designs using Adobe XD, Miro, and Illustrator.</li>
+            <li>Designed accessible, user-friendly interfaces for a platform serving 1,000+ learners, ensuring consistency and usability.</li>
+            <li>Collaborated with stakeholders to prioritize features and align design with learning goals.</li>
+            <li>Improved usability through clear navigation, structured layouts, and reduced cognitive load, with responsive design across devices.</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </section>
+    <div class="exp-item reveal">
+      <span class="exp-year">Aug 2022 – Jan 2023</span>
+      <div>
+        <p class="exp-role">Indoor Library Navigation App — MSc Project</p>
+        <p class="exp-company">University of Leicester</p>
+        <div class="exp-detail">
+          <ul>
+            <li>Developed a library app to address challenges faced by international students in finding books efficiently.</li>
+            <li>Designed intuitive interfaces and user-friendly layouts using Figma and JavaScript, boosting engagement by 15% for 150+ users.</li>
+            <li>Conducted user research and prototyping, increasing pain-point discovery by 40% and improving overall UX.</li>
+            <li>Enhanced navigation and search functionality, achieving a 65% improvement in book discovery.</li>
+            <li>Applied consistent branding, responsive design principles, and optimized user journeys using React Native and JavaScript.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- FOOTER -->
+<!-- CONTACT -->
+<section id="contact">
+  <div class="curved-loop-jacket" id="curved-loop">
+    <svg class="curved-loop-svg" viewBox="0 0 1440 200">
+      <text id="curved-loop-measure" xml:space="preserve" style="visibility:hidden;opacity:0;">Let's Talk ✦ </text>
+      <defs>
+        <path id="curved-loop-path" d="M-100,100 Q720,290 1540,100" fill="none" stroke="transparent"/>
+      </defs>
+      <text font-weight="bold" xml:space="preserve" class="curved-loop-text">
+          <textPath id="curved-loop-textpath" href="#curved-loop-path" startOffset="0px" xml:space="preserve"></textPath>
+        </text>
+    </svg>
+  </div>
+
+  <p class="section-label">Let's talk</p>
+  <h2 class="contact-heading reveal">Got a project<br>in <em>mind?</em></h2>
+  <p class="contact-sub reveal">I'm open to freelance projects, full-time roles, and interesting collaborations.</p>
+  <a href="mailto:sharanprabhu1998@gmail.com" class="contact-email reveal">sharanprabhu1998@gmail.com</a>
+  <div class="social-row reveal">
+    <a href="https://www.linkedin.com/in/sharan-prabhu-884742113/" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
+    <a href="#" target="_blank" rel="noopener" class="social-link">GitHub</a>
+    <a href="resume.pdf" download class="social-link">Resume</a>
+  </div>
+
+  <div class="footer-divider"></div>
   <footer>
-    <span class="footer-name">Sharan Prabhu — Portfolio 2026</span>
-    <span class="footer-copy">Designed &amp; built with intent.</span>
+    <span class="footer-name">Created by Sharan Prabhu. 2026.</span>
   </footer>
+</section>
 
-  <script>
-    const introScreen = document.getElementById('intro-screen');
-    const introVideo  = document.getElementById('intro-video');
-    const playBtn     = document.getElementById('play-btn');
-    const skipBtn     = document.getElementById('skip-btn');
+<script>
+  const introScreen = document.getElementById('intro-screen');
+  const introVideo  = document.getElementById('intro-video');
+  const playBtn     = document.getElementById('play-btn');
+  const skipBtn     = document.getElementById('skip-btn');
 
-    // ── PLAY BUTTON CLICK ────────────────────────────────────
-    playBtn.addEventListener('click', () => {
-      // Fade out play button
-      playBtn.style.opacity = '0';
-      playBtn.style.transform = 'translate(-50%,-50%) scale(1.15)';
-      playBtn.style.pointerEvents = 'none';
+  // ── PLAY BUTTON CLICK ────────────────────────────────────
+  playBtn.addEventListener('click', () => {
+    // Fade out play button
+    playBtn.style.opacity = '0';
+    playBtn.style.transform = 'translate(-50%,-50%) scale(1.15)';
+    playBtn.style.pointerEvents = 'none';
 
-      // Lock scroll while video plays
-      document.body.style.overflow = 'hidden';
+    // Lock scroll while video plays
+    document.body.style.overflow = 'hidden';
 
-      // Show skip
-      skipBtn.classList.add('visible');
+    // Show skip
+    skipBtn.classList.add('visible');
 
-      // Play with audio
-      introVideo.muted = false;
-      introVideo.volume = 1;
-      introVideo.play().catch(() => {
-        introVideo.muted = true;
-        introVideo.play();
-      });
-    });
-
-    // ── VIDEO ENDS → reveal portfolio ────────────────────────
-    introVideo.addEventListener('ended', endIntro);
-
-    function endIntro() {
-      // Stop video and audio completely
-      introVideo.pause();
-      introVideo.currentTime = 0;
+    // Play with audio
+    introVideo.muted = false;
+    introVideo.volume = 1;
+    introVideo.play().catch(() => {
       introVideo.muted = true;
-
-      // Restore scroll
-      document.body.style.overflow = '';
-
-      introScreen.classList.add('fade-out');
-      setTimeout(() => { introScreen.style.display = 'none'; }, 900);
-    }
-
-    // ── SUBTITLES ────────────────────────────────────────────
-    const subtitleText = document.getElementById('subtitle-text');
-
-    const cues = [
-      { start: 0.5,  end: 2.0,  text: "Hello, I'm Sharan Prabhu." },
-      { start: 2.2,  end: 4.0,  text: "I'm a UX UI Designer." },
-      { start: 4.2,  end: 7.5,  text: "Passionate about solving real world problems through design." },
-      { start: 7.8,  end: 9.8,  text: "Welcome to my Portfolio." },
-    ];
-
-    introVideo.addEventListener('timeupdate', () => {
-      const t = introVideo.currentTime;
-      const active = cues.find(c => t >= c.start && t <= c.end);
-      if (active) {
-        subtitleText.textContent = active.text;
-        subtitleText.classList.add('visible');
-      } else {
-        subtitleText.classList.remove('visible');
-      }
+      introVideo.play();
     });
+  });
 
-    // Hide subtitles when video ends/skipped
-    introVideo.addEventListener('ended', () => subtitleText.classList.remove('visible'));
+  // ── VIDEO ENDS → reveal portfolio ────────────────────────
+  introVideo.addEventListener('ended', endIntro);
 
-    // ── SCROLL REVEAL ────────────────────────────────────────
+  function endIntro() {
+    // Stop video and audio completely
+    introVideo.pause();
+    introVideo.currentTime = 0;
+    introVideo.muted = true;
+
+    // Restore scroll
+    document.body.style.overflow = '';
+
+    introScreen.classList.add('fade-out');
+    setTimeout(() => { introScreen.style.display = 'none'; }, 900);
+  }
+
+  // ── SUBTITLES ────────────────────────────────────────────
+  const subtitleText = document.getElementById('subtitle-text');
+
+  const cues = [
+    { start: 0.5,  end: 2.0,  text: "Hello, I'm Sharan Prabhu." },
+    { start: 2.2,  end: 4.0,  text: "I'm a UX UI Designer." },
+    { start: 4.2,  end: 7.5,  text: "Passionate about solving real world problems through design." },
+    { start: 7.8,  end: 9.8,  text: "Welcome to my Portfolio." },
+  ];
+
+  introVideo.addEventListener('timeupdate', () => {
+    const t = introVideo.currentTime;
+    const active = cues.find(c => t >= c.start && t <= c.end);
+    if (active) {
+      subtitleText.textContent = active.text;
+      subtitleText.classList.add('visible');
+    } else {
+      subtitleText.classList.remove('visible');
+    }
+  });
+
+  // Hide subtitles when video ends/skipped
+  introVideo.addEventListener('ended', () => subtitleText.classList.remove('visible'));
+
+  // ── SCROLL REVEAL ────────────────────────────────────────
+  try {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
@@ -1028,116 +1300,742 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  } catch (e) {
+    console.error('Reveal observer failed, showing all content:', e);
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }
 
-    // ── HERO PARALLAX ────────────────────────────────────────
-    const bgText = document.querySelector('.hero-bg-text');
+  // Failsafe: if anything goes wrong, force all reveal elements visible after 2s
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 2000);
+
+  // ── SMOOTH SECTION PARALLAX ────────────────────────────────
+  // As each card-section scrolls through the viewport, it drifts
+  // slightly slower than the page (a soft, native-feeling parallax)
+  // and fades gently as it nears the top/bottom edges. No scroll
+  // locking or snapping — this rides on top of normal page scroll.
+  (function () {
+    const parallaxSections = Array.from(document.querySelectorAll('#about, #work, #experience, #contact'));
+    if (!parallaxSections.length) return;
+
+    let ticking = false;
+
+    function updateParallax() {
+      const viewportH = window.innerHeight;
+
+      parallaxSections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        // Progress: -1 when section bottom is at viewport top,
+        //            0 when section is centered in viewport,
+        //            1 when section top is at viewport bottom.
+        const center = rect.top + rect.height / 2;
+        const progress = (center - viewportH / 2) / viewportH;
+        const clamped = Math.max(-1.2, Math.min(1.2, progress));
+
+        // Gentle vertical drift — content moves slightly slower than scroll.
+        const drift = clamped * -18; // px
+        section.style.setProperty('--parallax-y', `${drift}px`);
+
+        // Soft fade near the very edges of travel, full opacity in the middle.
+        const fade = 1 - Math.min(1, Math.max(0, (Math.abs(clamped) - 0.85) / 0.35));
+        section.style.setProperty('--parallax-fade', fade.toFixed(3));
+      });
+
+      ticking = false;
+    }
+
     window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (bgText) bgText.style.transform = `translate(-50%, calc(-50% + ${y * 0.25}px))`;
-    }, { passive: true });
-  </script>
-
-  <!-- PROJECT MODAL -->
-  <div id="project-modal" role="dialog" aria-modal="true">
-    <div class="modal-backdrop" onclick="closeProjectModal()"></div>
-    <div class="modal-box">
-
-      <div class="modal-header">
-        <div>
-          <p class="modal-tag" id="modal-tag"></p>
-          <h2 class="modal-title" id="modal-title"></h2>
-        </div>
-        <button class="modal-close" onclick="closeProjectModal()" aria-label="Close">✕</button>
-      </div>
-
-      <div class="modal-body" id="modal-body"></div>
-    </div>
-  </div>
-
-  <!-- LIGHTBOX -->
-  <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="Full view">
-  </div>
-
-  <script>
-    // ── PROJECT DATA ──────────────────────────────────────────
-    const projects = {
-      library: {
-        tag: 'UX Case Study · Kiosk Redesign',
-        title: 'Library Redesign',
-        stats: [
-          { label: 'Role',     value: 'UX/UI Designer' },
-          { label: 'Duration', value: '2 Months' },
-          { label: 'Research', value: '15+ Users' },
-        ],
-        desc: `An application to find needed books within Anna University Library. The existing kiosk interface was complex, lacked availability status, and made book discovery frustrating. The redesign introduced smarter search, AR navigation, floor-based filtering, and real-time book availability — making the experience intuitive for all users.`,
-        process: ['Observation Study','User Interviews','Affinity Mapping','Persona','Journey Mapping','Conceptual Model','Information Architecture','Task Flow','Style Guide','Usability Testing'],
-        images: [
-          { src: 'library_cover.jpg',    alt: 'Library Redesign Cover' },
-          { src: 'library_research.jpg', alt: 'User Research & Persona' },
-          { src: 'library_journey.jpg',  alt: 'Journey Mapping' },
-          { src: 'library_ia.jpg',       alt: 'Information Architecture & Task Flow' },
-          { src: 'library_visual.jpg',   alt: 'Visual Design & Screens' },
-          { src: 'library_nav.jpg',      alt: 'AR Navigation & Conclusion' },
-        ]
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateParallax);
       }
-    };
+    }, { passive: true });
 
-    function openProjectModal(key) {
-      const p = projects[key];
-      if (!p) return;
+    updateParallax();
+  })();
+</script>
 
-      document.getElementById('modal-tag').textContent   = p.tag;
-      document.getElementById('modal-title').textContent = p.title;
+<!-- PROJECT MODAL -->
+<div id="project-modal" role="dialog" aria-modal="true">
+  <div class="modal-backdrop" onclick="closeProjectModal()"></div>
+  <div class="modal-box">
 
-      const statsHtml = p.stats.map(s => `
+    <div class="modal-header">
+      <div>
+        <p class="modal-tag" id="modal-tag"></p>
+        <h2 class="modal-title" id="modal-title"></h2>
+      </div>
+      <button class="modal-close" onclick="closeProjectModal()" aria-label="Close">✕</button>
+    </div>
+
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Full view">
+</div>
+
+<script>
+  // ── PROJECT DATA ──────────────────────────────────────────
+  const projects = {
+    rama: {
+      tag: 'Live Website · E-commerce',
+      title: 'Rama Water Filters',
+      liveUrl: 'https://ramawaterfilter.com/',
+      screenshot: 'rama_screenshot.jpg',
+      stats: [
+        { label: 'Role',     value: 'Designer & Developer' },
+        { label: 'Status',   value: 'Live in Production' },
+        { label: 'Reviews',  value: '2,348+' },
+      ],
+      desc: `Rama is positioned as India's #1 gravity water filter brand, with over 60 years of history. I designed and built their live e-commerce site around the tagline "Pure Water Starts Here" — selling electricity-free gravity filtration systems that remove bacteria, viruses, heavy metals, PFAS, microplastics, fluoride, and chlorine without needing power.
+
+The site features two flagship products: the Spirit 7" filter (up to 6,000L, built for tap, well, lake, or river water) and the Carbon 8" filter (up to 20,000L, 2-stage filtration for urban tap water that retains essential minerals). Products are NSF, ISO, and Water Quality Association certified.
+
+To drive conversion, I built in a cost-savings calculator showing customers they save roughly ₹3,485/year versus bottled water cans for a 2-person household, alongside a 10-year warranty and 100-day money-back guarantee to build trust at checkout.`,
+      process: ['Brand Strategy','Product Page Design','E-commerce UX','Conversion Optimization','Savings Calculator Build','Live Deployment'],
+    },
+    libyroom: {
+      tag: 'UX Case Study · Mobile App',
+      title: 'Libyroom',
+      pdf: 'libyroom.pdf',
+      stats: [
+        { label: 'Role',     value: 'UX/UI Designer' },
+        { label: 'Users Interviewed', value: '20+' },
+        { label: 'Platform', value: 'Mobile App' },
+      ],
+      desc: `Libyroom helps international students navigate unfamiliar library layouts. Users can search for books by title, author, or keyword and get real-time availability for both physical and online versions. An interactive library map pinpoints exact book locations — saving time and reducing the frustration of unfamiliar floor plans and shelving systems.`,
+      process: ['User Interviews','Persona','Journey Mapping','Information Architecture','High Fidelity Prototypes','Usability Testing'],
+    },
+    pronto: {
+      tag: 'UX Case Study · Mobile App',
+      title: 'Pronto',
+      pdf: 'pronto.pdf',
+      stats: [
+        { label: 'Role',     value: 'UX/UI Designer' },
+        { label: 'Users Interviewed', value: '40+' },
+        { label: 'Platform', value: 'Mobile App' },
+      ],
+      desc: `Pronto helps commuters book local train tickets online — removing the stress of long queues and the confusion of automatic ticket vending machines (ATVMs). The app adds seasonal pass booking, recharge reminders, and e-wallet accessibility, designed around real commuter behavior and trust issues uncovered through 40+ user interviews.`,
+      process: ['Observation Study','User Interviews','Affinity Mapping','Persona','Journey Mapping','Conceptual Model','Information Architecture','Task Flow','Wireframe','Prototyping','Usability Testing'],
+    },
+    library: {
+      tag: 'UX Case Study · Kiosk Redesign',
+      title: 'Library Redesign',
+      pdf: 'library.pdf',
+      stats: [
+        { label: 'Role',     value: 'UX/UI Designer' },
+        { label: 'Duration', value: '2 Months' },
+        { label: 'Research', value: '15+ Users' },
+      ],
+      desc: `An application to find needed books within Anna University Library. The existing kiosk interface was complex, lacked availability status, and made book discovery frustrating. The redesign introduced smarter search, AR navigation, floor-based filtering, and real-time book availability — making the experience intuitive for all users.`,
+      process: ['Observation Study','User Interviews','Affinity Mapping','Persona','Journey Mapping','Conceptual Model','Information Architecture','Task Flow','Style Guide','Usability Testing'],
+    }
+  };
+
+  function openProjectModal(key) {
+    const p = projects[key];
+    if (!p) return;
+
+    document.getElementById('modal-tag').textContent   = p.tag;
+    document.getElementById('modal-title').textContent = p.title;
+
+    const statsHtml = p.stats.map(s => `
         <div class="modal-stat">
           <div class="modal-stat-label">${s.label}</div>
           <div class="modal-stat-value">${s.value}</div>
         </div>`).join('');
 
-      const galleryHtml = p.images.map(img => `
-        <img src="${img.src}" alt="${img.alt}" loading="lazy" onclick="openLightbox(this.src)" />`).join('');
+    const pillsHtml = p.process.map(step =>
+            `<span class="modal-pill">${step}</span>`).join('');
 
-      const pillsHtml = p.process.map(step =>
-        `<span class="modal-pill">${step}</span>`).join('');
+    // Render either a live-site preview block or an embedded PDF case study
+    let mediaBlock = '';
+    if (p.liveUrl) {
+      mediaBlock = `
+        <div>
+          <p class="modal-gallery-label">Live Project</p>
+          <div class="modal-live-block">
+            <img src="${p.screenshot}" alt="${p.title} full page screenshot" loading="lazy" />
+          </div>
+          <p style="margin-top:10px;font-size:0.8rem;">
+            <a href="${p.liveUrl}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">
+              Visit live site ↗
+            </a>
+          </p>
+        </div>`;
+    } else if (p.pdf) {
+      mediaBlock = `
+        <div>
+          <p class="modal-gallery-label">Case Study</p>
+          <div class="modal-pdf-viewer">
+            <iframe src="${p.pdf}" title="Case Study PDF"></iframe>
+          </div>
+          <p style="margin-top:10px;font-size:0.8rem;">
+            <a href="${p.pdf}" target="_blank" style="color:var(--accent);text-decoration:underline;">
+              Open PDF in new tab ↗
+            </a>
+          </p>
+        </div>`;
+    }
 
-      document.getElementById('modal-body').innerHTML = `
+    document.getElementById('modal-body').innerHTML = `
         <div class="modal-overview">${statsHtml}</div>
         <p class="modal-desc">${p.desc}</p>
         <div>
           <p class="modal-gallery-label">Design Process</p>
           <div class="modal-process">${pillsHtml}</div>
         </div>
-        <div>
-          <p class="modal-gallery-label">Case Study Screens</p>
-          <div class="modal-gallery">${galleryHtml}</div>
-        </div>
+        ${mediaBlock}
       `;
 
-      document.getElementById('project-modal').classList.add('open');
-      document.body.style.overflow = 'hidden';
+    document.getElementById('project-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProjectModal() {
+    document.getElementById('project-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeProjectModal(); closeLightbox(); }
+  });
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+</script>
+<script>
+  // ── CURSOR PARTICLE TRAIL — firecracker sparks ─────────────
+  (function () {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let lastSpawnX = mouseX;
+    let lastSpawnY = mouseY;
+    const MIN_DIST = 14; // px between particles — higher = sparser, more discrete drops
+
+    // Firecracker palette — bright sparks of varying warmth + the site's tiffany accent
+    const SPARK_COLORS = ['#ff7a1a', '#ffd23f', '#ff4d4d', '#21f1a8', '#ffaa33'];
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+
+    function spawnParticle(x, y) {
+      const p = document.createElement('div');
+      p.className = 'cursor-particle';
+
+      const color = SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)];
+      p.style.background = color;
+      p.style.boxShadow = `0 0 4px 1px ${color}99`;
+
+      // Slight random scatter direction, like a tiny spark popping off
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 8 + Math.random() * 10;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist;
+
+      p.style.left = x + 'px';
+      p.style.top  = y + 'px';
+      document.body.appendChild(p);
+
+      requestAnimationFrame(() => {
+        p.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+        p.style.opacity = '0';
+        p.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.4)`;
+      });
+
+      setTimeout(() => p.remove(), 420);
     }
 
-    function closeProjectModal() {
-      document.getElementById('project-modal').classList.remove('open');
-      document.body.style.overflow = '';
+    function loop() {
+      const dx = mouseX - lastSpawnX;
+      const dy = mouseY - lastSpawnY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist >= MIN_DIST) {
+        // Spawn one spark per MIN_DIST travelled — discrete drops, not a continuous line
+        const steps = Math.min(Math.floor(dist / MIN_DIST), 4);
+        for (let i = 1; i <= steps; i++) {
+          const t = i / steps;
+          spawnParticle(lastSpawnX + dx * t, lastSpawnY + dy * t);
+        }
+        lastSpawnX = mouseX;
+        lastSpawnY = mouseY;
+      }
+
+      requestAnimationFrame(loop);
     }
 
-    // Close on Escape key
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { closeProjectModal(); closeLightbox(); }
+    requestAnimationFrame(loop);
+  })();
+</script>
+
+<script>
+  // ── HERO PARTICLES — vanilla WebGL port of React Bits <Particles /> ──
+  // Same vertex/fragment shaders as the original `ogl`-based component,
+  // reimplemented with raw WebGL calls (no external library needed) so
+  // it works in this static-HTML site with zero added dependencies.
+  (function () {
+    const container = document.getElementById('hero-particles');
+    if (!container) return;
+
+    const canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+
+    const gl = canvas.getContext('webgl', { alpha: true, depth: false, antialias: true });
+    if (!gl) return; // WebGL unsupported — skip gracefully, static glow is simply absent
+
+    gl.clearColor(0, 0, 0, 0);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    // ── Config (per latest request) ──
+    const PARTICLE_COLORS    = ['#21f1a8', '#ffffff', '#21f1a8'];
+    const PARTICLE_COUNT     = 250;
+    const PARTICLE_SPREAD    = 10;
+    const SPEED               = 0.1;
+    const PARTICLE_BASE_SIZE  = 100;
+    const SIZE_RANDOMNESS     = 1;
+    const CAMERA_DISTANCE     = 20;
+    const DISABLE_ROTATION    = true;
+    const MOVE_ON_HOVER       = true;
+    const PARTICLE_HOVER_FACTOR = 1;
+    const PIXEL_RATIO         = 1;
+    const ALPHA_PARTICLES    = true;
+
+    function hexToRgb(hex) {
+      hex = hex.replace(/^#/, '');
+      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+      const int = parseInt(hex, 16);
+      return [((int >> 16) & 255) / 255, ((int >> 8) & 255) / 255, (int & 255) / 255];
+    }
+
+    const vertexSrc = `
+        attribute vec3 position;
+        attribute vec4 random;
+        attribute vec3 color;
+
+        uniform mat4 modelMatrix;
+        uniform mat4 viewMatrix;
+        uniform mat4 projectionMatrix;
+        uniform float uTime;
+        uniform float uSpread;
+        uniform float uBaseSize;
+        uniform float uSizeRandomness;
+
+        varying vec4 vRandom;
+        varying vec3 vColor;
+
+        void main() {
+          vRandom = random;
+          vColor = color;
+
+          vec3 pos = position * uSpread;
+          pos.z *= 10.0;
+
+          vec4 mPos = modelMatrix * vec4(pos, 1.0);
+          float t = uTime;
+          mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
+          mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
+          mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
+
+          vec4 mvPos = viewMatrix * mPos;
+
+          if (uSizeRandomness == 0.0) {
+            gl_PointSize = uBaseSize;
+          } else {
+            gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
+          }
+
+          gl_Position = projectionMatrix * mvPos;
+        }
+      `;
+
+    const fragmentSrc = `
+        precision highp float;
+
+        uniform float uTime;
+        uniform float uAlphaParticles;
+        varying vec4 vRandom;
+        varying vec3 vColor;
+
+        void main() {
+          vec2 uv = gl_PointCoord.xy;
+          float d = length(uv - vec2(0.5));
+
+          if (uAlphaParticles < 0.5) {
+            if (d > 0.5) discard;
+            gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), 1.0);
+          } else {
+            float circle = smoothstep(0.5, 0.4, d) * 0.8;
+            gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), circle);
+          }
+        }
+      `;
+
+    function compileShader(type, source) {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error('Particle shader error:', gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    }
+
+    const vShader = compileShader(gl.VERTEX_SHADER, vertexSrc);
+    const fShader = compileShader(gl.FRAGMENT_SHADER, fragmentSrc);
+    if (!vShader || !fShader) return;
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vShader);
+    gl.attachShader(program, fShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error('Particle program link error:', gl.getProgramInfoLog(program));
+      return;
+    }
+    gl.useProgram(program);
+
+    // ── Generate particle attribute data (identical approach to source) ──
+    const count = PARTICLE_COUNT;
+    const positions = new Float32Array(count * 3);
+    const randoms = new Float32Array(count * 4);
+    const colors = new Float32Array(count * 3);
+    const palette = PARTICLE_COLORS;
+
+    for (let i = 0; i < count; i++) {
+      let x, y, z, len;
+      do {
+        x = Math.random() * 2 - 1;
+        y = Math.random() * 2 - 1;
+        z = Math.random() * 2 - 1;
+        len = x * x + y * y + z * z;
+      } while (len > 1 || len === 0);
+      const r = Math.cbrt(Math.random());
+      positions.set([x * r, y * r, z * r], i * 3);
+      randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
+      const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
+      colors.set(col, i * 3);
+    }
+
+    function makeBuffer(data, attribName, size) {
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+      const loc = gl.getAttribLocation(program, attribName);
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+      return buf;
+    }
+
+    makeBuffer(positions, 'position', 3);
+    makeBuffer(randoms, 'random', 4);
+    makeBuffer(colors, 'color', 3);
+
+    // ── Uniform locations ──
+    const uTime           = gl.getUniformLocation(program, 'uTime');
+    const uSpread         = gl.getUniformLocation(program, 'uSpread');
+    const uBaseSize       = gl.getUniformLocation(program, 'uBaseSize');
+    const uSizeRandomness = gl.getUniformLocation(program, 'uSizeRandomness');
+    const uAlphaParticles = gl.getUniformLocation(program, 'uAlphaParticles');
+    const uModelMatrix      = gl.getUniformLocation(program, 'modelMatrix');
+    const uViewMatrix       = gl.getUniformLocation(program, 'viewMatrix');
+    const uProjectionMatrix = gl.getUniformLocation(program, 'projectionMatrix');
+
+    gl.uniform1f(uSpread, PARTICLE_SPREAD);
+    gl.uniform1f(uBaseSize, PARTICLE_BASE_SIZE * PIXEL_RATIO);
+    gl.uniform1f(uSizeRandomness, SIZE_RANDOMNESS);
+    gl.uniform1f(uAlphaParticles, ALPHA_PARTICLES ? 1 : 0);
+
+    // ── Minimal mat4 helpers (perspective + lookAt + rotation) ──
+    function perspective(fovRad, aspect, near, far) {
+      const f = 1 / Math.tan(fovRad / 2);
+      const nf = 1 / (near - far);
+      return new Float32Array([
+        f / aspect, 0, 0, 0,
+        0, f, 0, 0,
+        0, 0, (far + near) * nf, -1,
+        0, 0, 2 * far * near * nf, 0
+      ]);
+    }
+    function lookAt(eye) {
+      // Camera looking down -Z toward origin, no rotation needed since
+      // eye is on the Z axis — this reduces to a simple translation.
+      return new Float32Array([
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        -eye[0], -eye[1], -eye[2], 1
+      ]);
+    }
+    function identity() {
+      return new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]);
+    }
+    function multiply(a, b) {
+      const out = new Float32Array(16);
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+          out[i * 4 + j] =
+                  a[i * 4 + 0] * b[0 * 4 + j] +
+                  a[i * 4 + 1] * b[1 * 4 + j] +
+                  a[i * 4 + 2] * b[2 * 4 + j] +
+                  a[i * 4 + 3] * b[3 * 4 + j];
+        }
+      }
+      return out;
+    }
+    function rotationMatrix(rx, ry, rz) {
+      const cx = Math.cos(rx), sx = Math.sin(rx);
+      const cy = Math.cos(ry), sy = Math.sin(ry);
+      const cz = Math.cos(rz), sz = Math.sin(rz);
+      const rotX = new Float32Array([1,0,0,0, 0,cx,sx,0, 0,-sx,cx,0, 0,0,0,1]);
+      const rotY = new Float32Array([cy,0,-sy,0, 0,1,0,0, sy,0,cy,0, 0,0,0,1]);
+      const rotZ = new Float32Array([cz,sz,0,0, -sz,cz,0,0, 0,0,1,0, 0,0,0,1]);
+      return multiply(multiply(rotZ, rotY), rotX);
+    }
+
+    const cameraPos = [0, 0, CAMERA_DISTANCE];
+    const viewMatrix = lookAt(cameraPos);
+
+    function resize() {
+      const w = container.clientWidth || 1;
+      const h = container.clientHeight || 1;
+      canvas.width = Math.floor(w * PIXEL_RATIO);
+      canvas.height = Math.floor(h * PIXEL_RATIO);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      const projMatrix = perspective((15 * Math.PI) / 180, canvas.width / canvas.height, 0.1, 1000);
+      gl.uniformMatrix4fv(uProjectionMatrix, false, projMatrix);
+    }
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+
+    gl.uniformMatrix4fv(uViewMatrix, false, viewMatrix);
+
+    // ── Mouse interaction (moveParticlesOnHover) ──
+    // Tracked on the whole hero section rather than the canvas itself,
+    // since the canvas has pointer-events: none so clicks/links beneath
+    // it keep working normally.
+    const heroSection = document.getElementById('hero');
+    const mouse = { x: 0, y: 0 };
+    if (MOVE_ON_HOVER && heroSection) {
+      heroSection.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      }, { passive: true });
+    }
+
+    function translationMatrix(x, y, z) {
+      return new Float32Array([
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        x, y, z, 1
+      ]);
+    }
+
+    let lastTime = performance.now();
+    let elapsed = 0;
+
+    function render(now) {
+      const delta = now - lastTime;
+      lastTime = now;
+      elapsed += delta * SPEED;
+
+      const t = elapsed * 0.001;
+      gl.uniform1f(uTime, t);
+
+      let modelMatrix = identity();
+      if (!DISABLE_ROTATION) {
+        const rx = Math.sin(elapsed * 0.0002) * 0.1;
+        const ry = Math.cos(elapsed * 0.0005) * 0.15;
+        modelMatrix = rotationMatrix(rx, ry, 0);
+      }
+      if (MOVE_ON_HOVER) {
+        const offsetX = -mouse.x * PARTICLE_HOVER_FACTOR;
+        const offsetY = -mouse.y * PARTICLE_HOVER_FACTOR;
+        modelMatrix = multiply(translationMatrix(offsetX, offsetY, 0), modelMatrix);
+      }
+      gl.uniformMatrix4fv(uModelMatrix, false, modelMatrix);
+
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.POINTS, 0, count);
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+  })();
+</script>
+<script>
+  // ── MAGNETIC BUTTONS ───────────────────────────────────────
+  // Hero CTAs gently pull toward the cursor when hovered, then
+  // spring back to rest on mouse leave. Skipped on touch devices
+  // since there's no hover/cursor to react to.
+  (function () {
+    const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    if (isTouch) return;
+
+    const magneticEls = document.querySelectorAll('.btn-primary, .btn-ghost, .btn-resume');
+    const STRENGTH = 0.35; // 0–1, how strongly the button follows the cursor
+
+    magneticEls.forEach((el) => {
+      el.style.willChange = 'transform';
+      el.style.transition = 'transform 0.25s cubic-bezier(0.22,1,0.36,1)';
+
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const relX = e.clientX - rect.left - rect.width / 2;
+        const relY = e.clientY - rect.top - rect.height / 2;
+        el.style.transform = `translate(${relX * STRENGTH}px, ${relY * STRENGTH}px)`;
+      });
+
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = 'translate(0, 0)';
+      });
     });
+  })();
+</script>
+<script>
+  // ── PROJECT FILTER TABS ─────────────────────────────────────
+  (function () {
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.project-card');
 
-    // Lightbox
-    function openLightbox(src) {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox').classList.add('open');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const filter = tab.dataset.filter;
+        cards.forEach((card) => {
+          const matches = filter === 'all' || card.dataset.category === filter;
+          card.classList.toggle('filtered-out', !matches);
+        });
+      });
+    });
+  })();
+</script>
+
+<script>
+  // ── CURVED LOOP — vanilla JS port of React Bits <CurvedLoop /> ──
+  // Same SVG textPath-based looping marquee, with drag interaction,
+  // ported from React hooks/refs to plain DOM + requestAnimationFrame.
+  (function () {
+    const jacket = document.getElementById('curved-loop');
+    const measureEl = document.getElementById('curved-loop-measure');
+    const textPathEl = document.getElementById('curved-loop-textpath');
+    if (!jacket || !measureEl || !textPathEl) return;
+
+    // ── Config (mirrors the component's props) ──
+    const MARQUEE_TEXT = "Let's Talk ✦ Get In Touch ✦ Say Hello ✦ ";
+    const SPEED = 1.4;
+    const DIRECTION_INITIAL = 'left'; // 'left' | 'right'
+    const INTERACTIVE = true;
+
+    // Normalize trailing whitespace exactly like the source component
+    const hasTrailing = /\s|\u00A0$/.test(MARQUEE_TEXT);
+    const text = (hasTrailing ? MARQUEE_TEXT.replace(/\s+$/, '') : MARQUEE_TEXT) + '\u00A0';
+
+    measureEl.textContent = text;
+
+    let spacing = 0;
+    let offset = 0;
+    let dragging = false;
+    let lastX = 0;
+    let dirSign = DIRECTION_INITIAL === 'right' ? 1 : -1;
+    let velocity = 0;
+
+    function buildTotalText() {
+      if (!spacing) {
+        textPathEl.textContent = text;
+        return;
+      }
+      const repeats = Math.ceil(1800 / spacing) + 2;
+      textPathEl.textContent = new Array(repeats).fill(text).join('');
     }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
+
+    function measure() {
+      try {
+        spacing = measureEl.getComputedTextLength();
+      } catch (e) {
+        spacing = 0;
+      }
+      buildTotalText();
+      if (spacing) {
+        offset = -spacing;
+        textPathEl.setAttribute('startOffset', offset + 'px');
+      }
     }
-  </script>
+
+    // Measure once fonts/layout are ready (and again shortly after, in
+    // case the web font swaps in after first paint and changes width).
+    measure();
+    window.addEventListener('load', measure);
+    setTimeout(measure, 400);
+    window.addEventListener('resize', measure, { passive: true });
+
+    function step() {
+      if (!dragging && spacing) {
+        const delta = dirSign * SPEED;
+        let newOffset = offset + delta;
+        const wrapPoint = spacing;
+        if (newOffset <= -wrapPoint) newOffset += wrapPoint;
+        if (newOffset > 0) newOffset -= wrapPoint;
+        offset = newOffset;
+        textPathEl.setAttribute('startOffset', offset + 'px');
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+
+    if (INTERACTIVE) {
+      jacket.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        lastX = e.clientX;
+        velocity = 0;
+        jacket.setPointerCapture(e.pointerId);
+      });
+
+      jacket.addEventListener('pointermove', (e) => {
+        if (!dragging || !spacing) return;
+        const dx = e.clientX - lastX;
+        lastX = e.clientX;
+        velocity = dx;
+
+        let newOffset = offset + dx;
+        const wrapPoint = spacing;
+        if (newOffset <= -wrapPoint) newOffset += wrapPoint;
+        if (newOffset > 0) newOffset -= wrapPoint;
+        offset = newOffset;
+        textPathEl.setAttribute('startOffset', offset + 'px');
+      });
+
+      const endDrag = () => {
+        if (!dragging) return;
+        dragging = false;
+        dirSign = velocity > 0 ? 1 : -1;
+      };
+      jacket.addEventListener('pointerup', endDrag);
+      jacket.addEventListener('pointerleave', endDrag);
+    }
+  })();
+</script>
 
 </body>
 </html>
