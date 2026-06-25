@@ -373,6 +373,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
       color: var(--mid);
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.85rem;
@@ -1053,10 +1056,10 @@
     <div class="cta-row">
       <a href="#work" class="btn-primary">View Work</a>
       <a href="#contact" class="btn-ghost">Get in Touch</a>
-      <a href="resume.pdf" download class="btn-resume">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <button onclick="openResumeModal()" class="btn-resume">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         Resume
-      </a>
+      </button>
     </div>
   </div>
   <div class="scroll-hint">Scroll</div>
@@ -2045,6 +2048,45 @@ To drive conversion, I built in a cost-savings calculator showing customers they
       jacket.addEventListener('pointerleave', endDrag);
     }
   })();
+</script>
+
+<!-- RESUME MODAL -->
+<div id="resume-modal" role="dialog" aria-modal="true" style="display:none;position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;">
+  <div class="modal-backdrop" onclick="closeResumeModal()"></div>
+  <div class="modal-box" style="height:88vh;">
+    <div class="modal-header">
+      <div>
+        <p class="modal-tag">Resume · UX/UI Designer</p>
+        <h2 class="modal-title">Sharan Prabhu</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-left:16px;margin-top:2px;">
+        <a href="resume.pdf" download class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;padding:10px 20px;font-size:0.8rem;">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+        <button class="modal-close" onclick="closeResumeModal()" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div style="flex:1;overflow:hidden;">
+      <iframe src="resume.pdf" style="width:100%;height:100%;border:none;"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openResumeModal() {
+    const m = document.getElementById('resume-modal');
+    m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeResumeModal() {
+    const m = document.getElementById('resume-modal');
+    m.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeResumeModal();
+  });
 </script>
 
 </body>
