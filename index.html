@@ -236,11 +236,14 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 50;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 24px 48px;
+      background: rgba(23,23,23,0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
     .nav-logo {
       font-family: 'Space Mono', monospace;
@@ -738,9 +741,17 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* ── REVEAL (smooth parallax fade-and-rise) ─────────────── */
-    .reveal { opacity: 1; transform: none; }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* ── REVEAL (scroll-triggered fade-and-rise) ────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
 
     /* ── RESPONSIVE ──────────────────────────────────────────── */
     @media (max-width: 768px) {
@@ -763,8 +774,61 @@
       .curved-loop-jacket { padding: 36px 0; }
       .curved-loop-svg { font-size: 2.4rem; }
     }
+    /* ── SCROLL PROGRESS BAR ────────────────────────────────── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 200;
+      pointer-events: none;
+      transform-origin: left;
+    }
+
+    /* ── HERO ENTRANCE ──────────────────────────────────────── */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+    #hero .hero-eyebrow,
+    #hero .hero-name,
+    #hero .hero-bio,
+    #hero .cta-row,
+    #hero .scroll-hint { opacity: 0; }
+
+    #hero.hero-entered .hero-eyebrow { animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s  forwards; }
+    #hero.hero-entered .hero-name    { animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.28s forwards; }
+    #hero.hero-entered .hero-bio     { animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.44s forwards; }
+    #hero.hero-entered .cta-row      { animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.58s forwards; }
+    #hero.hero-entered .scroll-hint  { animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.72s forwards; }
+
+    /* ── SKILL CHIP ENHANCED HOVER ──────────────────────────── */
+    .skill-chip {
+      transition: border-color 0.2s, background 0.2s,
+                  transform 0.25s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.25s;
+    }
+    .skill-chip:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(33,241,168,0.18);
+    }
+
+    /* ── NAV ACTIVE SECTION LINK ────────────────────────────── */
+    .nav-links a.nav-active { opacity: 1; color: var(--accent); }
+
+    /* ── EXPERIENCE ITEM HOVER ──────────────────────────────── */
+    .exp-item {
+      transition: background 0.3s;
+      border-radius: 4px;
+    }
+    .exp-item:hover { background: rgba(33,241,168,0.04); }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      #hero .hero-eyebrow, #hero .hero-name, #hero .hero-bio,
+      #hero .cta-row, #hero .scroll-hint { opacity: 1 !important; }
     }
 
     /* ── SUBTITLES ───────────────────────────────────────────── */
@@ -1039,6 +1103,8 @@
   </style>
 </head>
 <body>
+
+<div id="scroll-progress"></div>
 
 <!-- INTRO SCREEN: video poster + play button -->
 <div id="intro-screen">
@@ -1332,14 +1398,11 @@
   introVideo.addEventListener('ended', endIntro);
 
   function endIntro() {
-    // Stop video and audio completely
     introVideo.pause();
     introVideo.currentTime = 0;
     introVideo.muted = true;
-
-    // Restore scroll
     document.body.style.overflow = '';
-
+    document.getElementById('hero').classList.add('hero-entered');
     introScreen.classList.add('fade-out');
     setTimeout(() => { introScreen.style.display = 'none'; }, 900);
   }
@@ -1388,9 +1451,13 @@
     }
   }
 
-  // Failsafe: if anything goes wrong, force all reveal elements visible after 2s
+  // Failsafe: only reveal elements already in the viewport — never off-screen ones,
+  // as those must wait for the IntersectionObserver so their scroll animation plays.
   setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
+    });
   }, 2000);
 
   // ── SMOOTH SECTION PARALLAX ────────────────────────────────
@@ -2157,6 +2224,68 @@ To drive conversion, I built in a cost-savings calculator showing customers they
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeResumeModal();
   });
+</script>
+
+<script>
+  // ── SCROLL PROGRESS BAR ──────────────────────────────────────
+  (function () {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (docH > 0 ? (window.scrollY / docH) * 100 : 0) + '%';
+    }, { passive: true });
+  })();
+
+  // ── STAGGER REVEAL DELAYS — per section ──────────────────────
+  (function () {
+    document.querySelectorAll('section').forEach(section => {
+      section.querySelectorAll('.reveal').forEach((el, i) => {
+        el.style.transitionDelay = (i * 90) + 'ms';
+      });
+    });
+  })();
+
+  // ── 3D CARD TILT ─────────────────────────────────────────────
+  (function () {
+    const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    if (isTouch) return;
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transition = 'transform 0.08s ease-out, box-shadow 0.25s';
+        card.style.transform = `perspective(700px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg) translateZ(8px)`;
+        card.style.boxShadow = `${-x * 24}px ${-y * 24}px 40px rgba(0,0,0,0.35)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s';
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      });
+    });
+  })();
+
+  // ── NAV ACTIVE SECTION HIGHLIGHT ────────────────────────────
+  (function () {
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!navLinks.length) return;
+    const sections = Array.from(navLinks)
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = '#' + entry.target.id;
+          navLinks.forEach(a => a.classList.toggle('nav-active', a.getAttribute('href') === id));
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach(s => observer.observe(s));
+  })();
 </script>
 
 </body>
